@@ -1,14 +1,22 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation';
 import axios from "axios";
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '@/redux/store';
+import { createNewUser, userState } from '@/redux/slices/UserSlice';
 
 
 const SignUpPage = () => {
 
+    const dispatch = useDispatch<AppDispatch>()
+
     const router = useRouter()
+
+    const isFullfilled = userState().isFullfilled
+
 
     const [passType, setPassType] = useState(false)
 
@@ -22,18 +30,21 @@ const SignUpPage = () => {
 
     const onSignup = async () => {
 
-        try {
-            
-            console.log(userData)
-        } catch (error  ) {
 
+        dispatch(createNewUser(userData))
 
-            console.log(error)
-            
-        }
-
+        // console.log(userData)
 
     }
+
+
+
+    useEffect(() => {
+        if (isFullfilled) {
+            router.push("/login")
+        }
+    }, [isFullfilled])
+
 
 
 
@@ -107,9 +118,9 @@ const SignUpPage = () => {
 
                     <div className=' flex'>
 
-                        <button 
-                        className=' px-4 border bg-green-400 text-white font-semibold mt-3 rounded ml-auto mr-10'
-                        onClick={onSignup}
+                        <button
+                            className=' px-4 border bg-green-400 text-white font-semibold mt-3 rounded ml-auto mr-10'
+                            onClick={() => onSignup()}
                         >SingUp</button>
 
                     </div>

@@ -14,12 +14,14 @@ connect()
 
 export async function POST(req: NextRequest) {
     try {
-        
-        console.log(req)
+
+        // console.log("Called ----------->")
+
+        // console.log(req)
 
         const reqBody = await req.json()
 
-        console.log(reqBody)
+        // console.log(reqBody)
 
         const { username, email, password } = reqBody
 
@@ -46,7 +48,7 @@ export async function POST(req: NextRequest) {
 
         createUser = await createUser.save()
 
-        NextResponse.json({ success: true, data: createUser, message: "User created." }, { status: 201 })
+        return NextResponse.json({ success: true, data: createUser, message: "User created." }, { status: 201 })
 
 
     } catch (error: any) {
