@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import axios from "axios";
 
 
-const page = () => {
+const LoginPage = () => {
 
     const [passType, setPassType] = useState(false)
 
@@ -90,4 +90,4 @@ const page = () => {
     )
 }
 
-export default page
+export default LoginPage

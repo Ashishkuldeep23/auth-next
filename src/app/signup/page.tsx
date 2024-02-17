@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import axios from "axios";
 
 
-const page = () => {
+const SignUpPage = () => {
 
     const router = useRouter()
 
@@ -126,4 +126,4 @@ const page = () => {
     )
 }
 
-export default page
+export default SignUpPage
