@@ -1,13 +1,13 @@
 'use client'
 
-import { themeData } from "@/redux/slices/ThemeSlice";
+import { useThemeData } from "@/redux/slices/ThemeSlice";
 import Image from "next/image";
 
 import Link from "next/link";
 
 export default function Home() {
 
-  const themeMode = themeData().mode
+  const themeMode = useThemeData().mode
 
   // console.log(themeMode)
 

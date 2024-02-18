@@ -35,18 +35,18 @@ export const createNewUser = createAsyncThunk('user/createNewUser', async (body:
 
     // try {
 
-        const response = await axios.post("/api/users/signup", body)
+    const response = await axios.post("/api/users/signup", body)
 
-        console.log(response)
+    // console.log(response)
 
-        return response.data
+    return response.data
 
     // } catch (error: any) {
 
-        // console.log("SignUp failed", error.message)
-        // // alert("SignUp failed")
+    // console.log("SignUp failed", error.message)
+    // // alert("SignUp failed")
 
-        // toast.error("SignUp failed")
+    // toast.error("SignUp failed")
     // }
 
 
@@ -98,7 +98,7 @@ const userSlice = createSlice({
                 state.isLoading = true
             })
             .addCase(createNewUser.fulfilled, (state, action) => {
-                console.log(action.payload)
+                // console.log(action.payload)
 
                 if (action.payload.status === false) {
 
@@ -109,6 +109,7 @@ const userSlice = createSlice({
                     state.userData = action.payload.data
                     toast.success(`${action.payload.message}`)
 
+                    state.isFullfilled = true
                 }
 
 
@@ -119,12 +120,12 @@ const userSlice = createSlice({
             })
             .addCase(createNewUser.rejected, (state, action) => {
 
-                console.log(action)
+                // console.log(action)
 
                 state.isLoading = false
                 state.isError = true
 
-                  toast.error("SignUp failed" )
+                toast.error("SignUp failed")
 
             })
 
@@ -137,7 +138,7 @@ const userSlice = createSlice({
 
 export const { } = userSlice.actions
 
-export const userState = () => useSelector((state: RootState) => state.userReducer)
+export const useUserState = () => useSelector((state: RootState) => state.userReducer)
 
 export default userSlice.reducer
 

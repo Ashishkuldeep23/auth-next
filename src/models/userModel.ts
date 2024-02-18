@@ -6,8 +6,6 @@ const userSchema = new mongoose.Schema({
     username: {
         type: String,
         required: [true, "Please provide a username"],
-        unique: true,
-        trim: true
     },
     email: {
         type: String,
@@ -30,10 +28,22 @@ const userSchema = new mongoose.Schema({
         default: false
     },
 
-    forgotPassToken: String,
-    forgotPassExp: Date,
-    verifyToken: String,
-    verifyTokenExp: Date
+    forgotPassToken: {
+        type: String,
+        default: ""
+    },
+    forgotPassExp: {
+        type: Date,
+        default: null
+    },
+    verifyToken: {
+        type: String,
+        default: ""
+    },
+    verifyTokenExp: {
+        type: Date,
+        default: null
+    }
 
 }, { timestamps: true })
 

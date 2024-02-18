@@ -55,7 +55,7 @@ const themeSlice = createSlice({
 
 export const { toggleModeValue, setModeOnLoad } = themeSlice.actions
 
-export const themeData = () => useSelector((state: RootState) => state.themeReducer)
+export const useThemeData = () => useSelector((state: RootState) => state.themeReducer)
 
 export default themeSlice.reducer
 

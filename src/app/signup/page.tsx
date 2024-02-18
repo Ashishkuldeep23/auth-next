@@ -6,7 +6,8 @@ import { useRouter } from 'next/navigation';
 import axios from "axios";
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@/redux/store';
-import { createNewUser, userState } from '@/redux/slices/UserSlice';
+import { createNewUser, useUserState } from '@/redux/slices/UserSlice';
+import MainLoader from '../components/MainLoader';
 
 
 const SignUpPage = () => {
@@ -15,16 +16,20 @@ const SignUpPage = () => {
 
     const router = useRouter()
 
-    const isFullfilled = userState().isFullfilled
+    const isFullfilled = useUserState().isFullfilled
 
+    const isLoading = useUserState().isLoading
 
     const [passType, setPassType] = useState(false)
 
-    const [userData, setUserData] = useState({
+
+    const userInitialData = {
         email: "",
         password: "",
         username: "",
-    })
+    }
+
+    const [userData, setUserData] = useState(userInitialData)
 
 
 
@@ -41,6 +46,9 @@ const SignUpPage = () => {
 
     useEffect(() => {
         if (isFullfilled) {
+
+            setUserData(userInitialData)
+
             router.push("/login")
         }
     }, [isFullfilled])
@@ -50,9 +58,11 @@ const SignUpPage = () => {
 
     return (
         <>
+
+
+            <MainLoader isLoading={isLoading} />
+
             <div className=' w-full h-screen flex flex-col items-center py-[25vh]'>
-
-
 
                 <div className=' border px-4 py-4 rounded-md md:w-1/4'>
 

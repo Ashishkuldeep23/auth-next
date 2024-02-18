@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Head from "next/head";
 import { Providers } from "@/redux/providers";
 import HomeButton from "./components/HomeButton";
 import { Toaster } from "react-hot-toast";
