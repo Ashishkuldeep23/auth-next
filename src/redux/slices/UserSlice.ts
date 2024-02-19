@@ -4,7 +4,6 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import { useSelector } from "react-redux"
 import { RootState } from "../store"
 import toast from "react-hot-toast"
-import axios from "axios"
 
 
 
@@ -20,34 +19,22 @@ export const createNewUser = createAsyncThunk('user/createNewUser', async (body:
 
 
 
-    // const option = {
-    //     method: 'POST',
-    //     headers: {
-    //         'Content-Type': 'application/json',
-    //     },
-    //     body: body
-    // }
-    // const response = await fetch('', option)
-    // let data = await response.json();
-    // return data
+    const option: RequestInit = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(body)
+    }
+    const response = await fetch('/api/users/signup', option)
+    let data = await response.json();
+    return data
 
 
 
-    // try {
+    // const response = await axios.post("/api/users/signup", body)
+    // return response.data
 
-    const response = await axios.post("/api/users/signup", body)
-
-    // console.log(response)
-
-    return response.data
-
-    // } catch (error: any) {
-
-    // console.log("SignUp failed", error.message)
-    // // alert("SignUp failed")
-
-    // toast.error("SignUp failed")
-    // }
 
 
 })
@@ -102,6 +89,8 @@ const userSlice = createSlice({
 
                 if (action.payload.status === false) {
 
+                    toast.error(`${action.payload.message || "SignUp Error"}`)
+
                     state.isError = true
 
                 } else {
@@ -125,7 +114,7 @@ const userSlice = createSlice({
                 state.isLoading = false
                 state.isError = true
 
-                toast.error("SignUp failed")
+                toast.error(` ${action.error.message || "SignUp failed"}`)
 
             })
 

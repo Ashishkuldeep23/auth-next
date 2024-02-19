@@ -18,25 +18,62 @@ const SignUpPage = () => {
 
     const isFullfilled = useUserState().isFullfilled
 
+    const userBackeData = useUserState().userData
+
     const isLoading = useUserState().isLoading
 
     const [passType, setPassType] = useState(false)
 
 
-    const userInitialData = {
-        email: "",
+
+    type UserInitialData = {
+        email: string,
+        password: string,
+        username: string,
+    }
+
+
+    const userInitialData: UserInitialData = {
+        email: userBackeData.email,
+        username: userBackeData.username,
         password: "",
-        username: "",
     }
 
     const [userData, setUserData] = useState(userInitialData)
 
+    const [errMsgWithStatus, setErrMsgWithStatus] = useState({
+        status: false,
+        msg: ""
+    })
 
 
-    const onSignup = async () => {
+
+    const setErrMsg = (str: string) => {
+        setErrMsgWithStatus({ status: true, msg: `ERROR : ${str}` })
+    }
+
+    const hideErrMsg = () => setErrMsgWithStatus({ ...errMsgWithStatus, status: false, });
 
 
-        dispatch(createNewUser(userData))
+    const onSignup = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, data: UserInitialData) => {
+
+        e.stopPropagation()
+        e.preventDefault()
+
+
+
+        // // // Validation ------>
+
+        let { username, email, password } = data
+
+        if (!username || !email || !password) {
+            setErrMsg("Maindatory field is not given.")
+            return
+        }
+
+
+
+        dispatch(createNewUser(data))
 
         // console.log(userData)
 
@@ -59,14 +96,19 @@ const SignUpPage = () => {
     return (
         <>
 
-
             <MainLoader isLoading={isLoading} />
 
             <div className=' w-full h-screen flex flex-col items-center py-[25vh]'>
 
                 <div className=' border px-4 py-4 rounded-md md:w-1/4'>
 
-                    <p className=' text-4xl font-bold border-b text-center px-5 py-1 rounded-md '>SingUp</p>
+                    <p className=' text-4xl font-bold border-b text-center px-5 py-1 '>SingUp</p>
+
+                    {
+                        errMsgWithStatus.status
+                        &&
+                        <p className=' text-center text-red-600 font-semibold mt-1'>{errMsgWithStatus.msg}</p>
+                    }
 
                     <div className="sm:col-span-3">
                         <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-100 mt-3">
@@ -75,7 +117,7 @@ const SignUpPage = () => {
                         <div className="mt-2">
                             <input
                                 value={userData.username}
-                                onChange={(e) => { setUserData({ ...userData, username: e.target.value }) }}
+                                onChange={(e) => { hideErrMsg(); setUserData({ ...userData, username: e.target.value }) }}
                                 type="text"
                                 name="name"
                                 id="name"
@@ -92,7 +134,7 @@ const SignUpPage = () => {
                         <div className="mt-2">
                             <input
                                 value={userData.email}
-                                onChange={(e) => { setUserData({ ...userData, email: e.target.value }) }}
+                                onChange={(e) => { hideErrMsg(); setUserData({ ...userData, email: e.target.value }) }}
                                 type="text"
                                 name="email"
                                 id="email"
@@ -110,7 +152,7 @@ const SignUpPage = () => {
                         <div className="mt-2 relative">
                             <input
                                 value={userData.password}
-                                onChange={(e) => { setUserData({ ...userData, password: e.target.value }) }}
+                                onChange={(e) => { hideErrMsg(); setUserData({ ...userData, password: e.target.value }) }}
                                 id="password"
                                 name="password"
                                 // type="password"
@@ -130,12 +172,10 @@ const SignUpPage = () => {
 
                         <button
                             className=' px-4 border bg-green-400 text-white font-semibold mt-3 rounded ml-auto mr-10'
-                            onClick={() => onSignup()}
+                            onClick={(e) => onSignup(e, userData)}
                         >SingUp</button>
 
                     </div>
-
-
 
                 </div>
 
