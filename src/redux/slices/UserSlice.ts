@@ -17,8 +17,6 @@ type BodyData = {
 
 export const createNewUser = createAsyncThunk('user/createNewUser', async (body: BodyData) => {
 
-
-
     const option: RequestInit = {
         method: 'POST',
         headers: {
@@ -30,15 +28,28 @@ export const createNewUser = createAsyncThunk('user/createNewUser', async (body:
     let data = await response.json();
     return data
 
+    // const response = await axios.post("/api/users/signup", body)
+    // return response.data
+})
 
+
+
+export const logInUser = createAsyncThunk('user/login', async (body: { email: string, password: string }) => {
+
+    const option: RequestInit = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(body)
+    }
+    const response = await fetch('/api/users/login', option)
+    let data = await response.json();
+    return data
 
     // const response = await axios.post("/api/users/signup", body)
     // return response.data
-
-
-
 })
-
 
 
 
@@ -48,7 +59,6 @@ export interface UserDataInterface {
     isVerified: boolean,
     isAdmin: boolean,
 }
-
 
 
 interface ThemeInter {
@@ -87,18 +97,20 @@ const userSlice = createSlice({
             .addCase(createNewUser.fulfilled, (state, action) => {
                 // console.log(action.payload)
 
-                if (action.payload.status === false) {
-
-                    toast.error(`${action.payload.message || "SignUp Error"}`)
-
-                    state.isError = true
-
-                } else {
+                if (action.payload.success === false) {
 
                     state.userData = action.payload.data
                     toast.success(`${action.payload.message}`)
 
                     state.isFullfilled = true
+
+
+                } else {
+
+
+                    toast.error(`${action.payload.message || "SignUp Error"}`)
+
+                    state.isError = true
                 }
 
 
@@ -118,6 +130,43 @@ const userSlice = createSlice({
 
             })
 
+
+            .addCase(logInUser.pending, (state) => {
+                state.isLoading = true
+            })
+            .addCase(logInUser.fulfilled, (state, action) => {
+                console.log(action.payload)
+
+                if (action.payload.success === true) {
+
+                    state.userData = action.payload.data
+                    toast.success(`${action.payload.message}`)
+
+                    state.isFullfilled = true
+
+                } else {
+
+                    toast.error(`${action.payload.message || "Login Error"}`)
+
+                    state.isError = true
+                }
+
+
+                // console.log(action.payload.message)
+
+                state.isLoading = false
+
+            })
+            .addCase(logInUser.rejected, (state, action) => {
+
+                // console.log(action)
+
+                state.isLoading = false
+                state.isError = true
+
+                toast.error(` ${action.error.message || "SignUp failed"}`)
+
+            })
 
 
     }

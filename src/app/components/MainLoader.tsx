@@ -15,7 +15,7 @@ const MainLoader = ({ isLoading = false }: { isLoading: boolean }) => {
 
                     <span
                         id="main_loader"
-                        className=' scale-150 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rotate-[45deg]'
+                        className='z-10 scale-150 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rotate-[45deg]'
                     ></span>
 
                 // </div>
