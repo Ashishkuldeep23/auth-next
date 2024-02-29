@@ -65,6 +65,7 @@ interface ThemeInter {
     isLoading: boolean,
     isFullfilled: boolean,
     isError: boolean,
+    errMsg : string
     userData: UserDataInterface
 }
 
@@ -73,6 +74,7 @@ const initialState: ThemeInter = {
     isLoading: false,
     isFullfilled: false,
     isError: false,
+    errMsg : "",
     userData: {
         username: "",
         email: "",
@@ -93,6 +95,7 @@ const userSlice = createSlice({
             // // // SingUp user --------->
             .addCase(createNewUser.pending, (state) => {
                 state.isLoading = true
+                state.errMsg = ''
             })
             .addCase(createNewUser.fulfilled, (state, action) => {
                 // console.log(action.payload)
@@ -111,6 +114,7 @@ const userSlice = createSlice({
                     toast.error(`${action.payload.message || "SignUp Error"}`)
 
                     state.isError = true
+                    state.errMsg = action.payload.message
                 }
 
 
@@ -127,12 +131,13 @@ const userSlice = createSlice({
                 state.isError = true
 
                 toast.error(` ${action.error.message || "SignUp failed"}`)
-
+                state.errMsg = action.error.message || 'Error'
             })
 
 
             .addCase(logInUser.pending, (state) => {
                 state.isLoading = true
+                state.errMsg = ''
             })
             .addCase(logInUser.fulfilled, (state, action) => {
                 console.log(action.payload)
@@ -145,10 +150,10 @@ const userSlice = createSlice({
                     state.isFullfilled = true
 
                 } else {
-
                     toast.error(`${action.payload.message || "Login Error"}`)
-
                     state.isError = true
+
+                    state.errMsg = action.payload.message
                 }
 
 
@@ -165,7 +170,7 @@ const userSlice = createSlice({
                 state.isError = true
 
                 toast.error(` ${action.error.message || "SignUp failed"}`)
-
+                state.errMsg = action.error.message || 'Error'
             })
 
 

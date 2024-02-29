@@ -1,5 +1,6 @@
 'use client'
 
+// import type { Metadata } from "next";
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation';
@@ -7,6 +8,12 @@ import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@/redux/store';
 import { logInUser, useUserState } from '@/redux/slices/UserSlice';
 import MainLoader from '../components/MainLoader';
+
+
+
+// export const metadata: Metadata = {
+//     title: "LogIn - Auth Next",
+// };
 
 
 
@@ -23,6 +30,8 @@ const LoginPage = () => {
     const userBackeData = useUserState().userData
 
     const isLoading = useUserState().isLoading
+
+    const errMsg = useUserState().errMsg
 
     const [userData, setUserData] = useState({
         email: userBackeData?.email || '',
@@ -66,7 +75,7 @@ const LoginPage = () => {
     useEffect(() => {
         if (isFullfilled) {
 
-        
+
 
             router.push("/")
         }
@@ -84,6 +93,14 @@ const LoginPage = () => {
                 <div className=' border px-4 py-4 rounded-md md:w-1/4'>
 
                     <p className=' text-4xl font-bold border-b text-center px-5 py-1 '>LogIn</p>
+
+
+                    {
+                        errMsg
+                        &&
+                        <p className=' text-red-500 font-semibold text-sm text-center'>Error:{errMsg}</p>
+                    }
+
 
                     <form onSubmit={(e) => onSubmiHander(e)}>
 

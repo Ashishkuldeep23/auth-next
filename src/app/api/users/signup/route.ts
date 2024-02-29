@@ -28,7 +28,7 @@ export async function POST(req: NextRequest) {
 
 
         if (getUserWithMail) {
-            return NextResponse.json({ success: false, error: 'User alredy exist' }, { status: 400 })
+            return NextResponse.json({ success: false, message: 'User alredy exist' }, { status: 400 })
         }
 
 
@@ -50,7 +50,7 @@ export async function POST(req: NextRequest) {
 
     } catch (error: any) {
         console.log("Error!")
-        return NextResponse.json({ success: false, error: error.message }, { status: 500 })
+        return NextResponse.json({ success: false, message: error.message }, { status: 500 })
     }
 }
 

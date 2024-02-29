@@ -27,14 +27,11 @@ export async function POST(req: NextRequest) {
         // // validation here --->
 
         const getUser = await User.findOne({ email })
-
-
-        
+  
         // console.log(getUser)
 
-
         if (!getUser) {
-            return NextResponse.json({ success: false, error: 'User not exist with given mail' }, { status: 404 })
+            return NextResponse.json({ success: false, message: 'User not exist with given mail' }, { status: 404 })
         }
 
 
@@ -46,7 +43,7 @@ export async function POST(req: NextRequest) {
         const validPass = await bcryptjs.compare(password, getUser.password)
 
         if (!validPass) {
-            return NextResponse.json({ success: false, error: 'Invalid password' }, { status: 400 })
+            return NextResponse.json({ success: false, message: 'Invalid password' }, { status: 400 })
         }
 
         const tokenData = { id: getUser._id, email: getUser.email }
@@ -78,7 +75,7 @@ export async function POST(req: NextRequest) {
 
     } catch (error: any) {
         console.log("Error!")
-        return NextResponse.json({ success: false, error: error.message }, { status: 500 })
+        return NextResponse.json({ success: false, message: error.message }, { status: 500 })
     }
 }
 
