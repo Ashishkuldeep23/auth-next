@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/redux/providers";
-import HomeButton from "./components/HomeButton";
 import { Toaster } from "react-hot-toast";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -30,8 +29,6 @@ export default function RootLayout({
 
           {/* Hot toster ---> */}
           <div><Toaster /></div>
-
-          <HomeButton />
 
           {children}
         </Providers>

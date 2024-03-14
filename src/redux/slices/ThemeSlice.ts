@@ -8,9 +8,13 @@ import { RootState } from "../store"
 
 interface ThemeInter {
     mode: boolean,
+    value: "black" | "white"
 }
 
-const initialState: ThemeInter = { mode: false }
+const initialState: ThemeInter = {
+    mode: false,
+    value: "black"
+}
 
 const themeSlice = createSlice({
     name: "theme",
@@ -25,15 +29,18 @@ const themeSlice = createSlice({
         // }
 
 
-        toggleModeValue(state) {
+        toggleModeValue(state ) {
+
 
             // if(!state.mode){
             // }
 
             if (!state.mode) {
+                state.value = "white"
                 state.mode = true
                 localStorage.setItem("authNext", JSON.stringify(true))
             } else {
+                state.value = 'black'
                 state.mode = false
                 localStorage.setItem("authNext", JSON.stringify(false))
             }
@@ -41,11 +48,12 @@ const themeSlice = createSlice({
         },
 
         setModeOnLoad(state, action) {
+            
             let { mode } = action.payload
+            console.log(mode)
 
             state.mode = mode
-        }
-
+        } ,
 
 
     }

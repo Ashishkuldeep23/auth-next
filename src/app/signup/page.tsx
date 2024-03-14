@@ -8,11 +8,15 @@ import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@/redux/store';
 import { createNewUser, useUserState } from '@/redux/slices/UserSlice';
 import MainLoader from '../components/MainLoader';
+import { useThemeData } from '@/redux/slices/ThemeSlice';
+import HomeButton from '../components/HomeButton';
 
 
 const SignUpPage = () => {
 
     const dispatch = useDispatch<AppDispatch>()
+
+    const themeMode = useThemeData().mode
 
     const router = useRouter()
 
@@ -100,6 +104,9 @@ const SignUpPage = () => {
 
             <div className=' w-full h-screen flex flex-col items-center py-[25vh]'>
 
+                <HomeButton />
+
+
                 <div className=' border px-4 py-4 rounded-md md:w-1/4'>
 
                     <p className=' text-4xl font-bold border-b text-center px-5 py-1 '>SingUp</p>
@@ -111,7 +118,7 @@ const SignUpPage = () => {
                     }
 
                     <div className="sm:col-span-3">
-                        <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-100 mt-3">
+                        <label htmlFor="name" className="block text-sm font-medium leading-6  mt-3">
                             Name
                         </label>
                         <div className="mt-2">
@@ -122,13 +129,13 @@ const SignUpPage = () => {
                                 name="name"
                                 id="name"
                                 placeholder='Name'
-                                className="block w-full rounded-md border-0 py-1.5 text-gray-100 font-semibold px-1 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-black"
+                                className={`block w-full rounded-md border-0 py-1.5  font-semibold px-1 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${!themeMode ? " bg-black text-white " : " bg-white text-black"}`}
                             />
                         </div>
                     </div>
 
                     <div className="sm:col-span-3">
-                        <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-100 mt-3">
+                        <label htmlFor="email" className="block text-sm font-medium leading-6  mt-3">
                             Email
                         </label>
                         <div className="mt-2">
@@ -139,14 +146,14 @@ const SignUpPage = () => {
                                 name="email"
                                 id="email"
                                 placeholder='Email'
-                                className="block w-full rounded-md border-0 py-1.5 text-gray-100 font-semibold px-1 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-black"
+                                className={`block w-full rounded-md border-0 py-1.5  font-semibold px-1 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${!themeMode ? " bg-black text-white " : " bg-white text-black"}`}
                             />
                         </div>
                     </div>
 
 
                     <div className="sm:col-span-4">
-                        <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-100 mt-3">
+                        <label htmlFor="password" className="block text-sm font-medium leading-6  mt-3">
                             Password
                         </label>
                         <div className="mt-2 relative">
@@ -158,7 +165,7 @@ const SignUpPage = () => {
                                 // type="password"
                                 type={!passType ? "password" : "text"}
                                 placeholder='Password'
-                                className="block w-full rounded-md border-0 py-1.5 text-gray-100 font-semibold px-1 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 bg-black"
+                                className={`block w-full rounded-md border-0 py-1.5  font-semibold px-1 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${!themeMode ? " bg-black text-white " : " bg-white text-black"}`}
                             />
                             <span
                                 className=' absolute border  rounded  border-zinc-500 top-1.5 right-2 hover:cursor-pointer'
