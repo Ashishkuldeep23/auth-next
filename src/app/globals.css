@@ -20,3 +20,11 @@
     -webkit-text-fill-color: transparent;
     -webkit-text-stroke: 1px var(--text);
 }
+
+
+
+
+.card_background{
+    background: linear-gradient(40deg, #ff7100, #ff7100 , #00dcff);
+
+}

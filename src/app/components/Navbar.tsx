@@ -3,6 +3,8 @@
 import { toggleModeValue, useThemeData } from "@/redux/slices/ThemeSlice"
 import Link from "next/link"
 import { useParams, usePathname } from "next/navigation"
+// import { useRouter } from "next/router"
+import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { useDispatch } from "react-redux"
 
@@ -15,21 +17,37 @@ const Navbar = () => {
 
     const dispatch = useDispatch()
 
-    const [isUserLogined , setIsUserLogined] =  useState(true)
+    const [isUserLogined, setIsUserLogined] = useState(true)
 
     const params = usePathname()
 
+    const router = useRouter()
+
     // console.log(params)
+
+
+    function goToHome(){
+        // alert("dfsdfsdagsd")
+
+        console.log(params)
+
+        if(params !== '/'){
+            router.push("/profile")
+        }else{
+            router.push("/")
+        }
+
+    }
+
 
 
     return (
         <section className={`relative z-[2] flex justify-between w-full px-2 sm:px-10 py-4 ${!themeMode ? " bg-black text-white " : " bg-white text-black"}`}>
 
-            <div className=" ">
-
-                home
-
-            </div>
+            <div
+                className=" p-[-10px] text-2xl capitalize font-[cursive]"
+                onClick={()=>goToHome()}
+            >home</div>
 
             <div className=" flex flex-wrap gap-2 ">
 
@@ -57,7 +75,7 @@ const Navbar = () => {
 
                                 <div className=" flex flex-wrap gap-1">
                                     <button
-                                        onClick={() => { alert('create new psot') }}
+                                        onClick={() => { router.push("/new-post") }}
 
                                         className={` border rounded-full px-2 py-0.5 text-sm font-bold ${themeMode ? " bg-black border-black text-white " : " border-white bg-white text-black"}`}
                                     >Create Post</button>

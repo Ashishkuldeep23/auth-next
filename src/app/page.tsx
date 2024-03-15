@@ -3,6 +3,7 @@
 import { useThemeData } from "@/redux/slices/ThemeSlice";
 
 import Navbar from "./components/Navbar";
+import { useState } from "react";
 
 export default function Home() {
 
@@ -19,7 +20,7 @@ export default function Home() {
       <div className=" flex flex-col justify-center items-center py-6 ">
 
 
-        <div className="flex flex-col items-end">
+        <div className="flex flex-col items-center ">
 
           <div className=" px-4 sm:px-10 flex flex-col items-center text-center ">
 
@@ -35,6 +36,11 @@ export default function Home() {
 
           </div>
 
+
+
+          <SearchByDiv />
+
+
         </div>
 
 
@@ -43,7 +49,7 @@ export default function Home() {
 
           {
 
-            [null, null, null, null , null , null , null].map((ele, i) => {
+            [null, null, null, null, null, null, null].map((ele, i) => {
               return (
 
                 <Card key={i} ele={ele} />
@@ -68,41 +74,89 @@ export default function Home() {
 
 function Card({ ele }: any) {
 
-
+  const themeMode = useThemeData().mode
 
   return (
     <div
       onClick={() => { console.log(ele) }}
 
-      className=" w-72 sm:w-80 border border-rose-900 p-1 sm:p-2 rounded hover:cursor-pointer hover:scale-105 sm:hover:scale-110 transition-all"
+      style={{ padding: "3px" }}
+      className=" bg-gradient-to-tr from-cyan-400  w-72 sm:w-80  sm:p-2 rounded hover:cursor-pointer hover:scale-105 sm:hover:scale-110 transition-all"
     >
 
 
-      <div className=" flex gap-1.5 items-center">
-        
-        <img className=" w-8" src="https://res.cloudinary.com/dlvq8n2ca/image/upload/v1701708322/jual47jntd2lpkgx8mfx.png" alt="" />
-        <p>Name</p>
+      <div className={` p-1 ${!themeMode ? " bg-black text-white " : " bg-white text-black"}`}>
+
+
+        <div className="rounded flex gap-1.5 items-center">
+
+          <img className=" rounded-full w-8" src="https://res.cloudinary.com/dlvq8n2ca/image/upload/v1701708322/jual47jntd2lpkgx8mfx.png" alt="" />
+          <p>Name</p>
+        </div>
+
+        <div className=" text-sm">
+
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laboriosam amet sed voluptas laborum quibusdam aperiam nesciunt vel magnam libero nam!  labndus dicta ullam ducimus.
+        </div>
+
+
+        <div className=" flex gap-2 text-violet-500 font-semibold ">
+          <p>#HTML</p>
+          <p>#CSS</p>
+          <p>#JS</p>
+          <p>#ReactJs</p>
+        </div>
+
+        <div className=" flex gap-5 text-xs">
+          <p>2 Likes</p>
+          <p>1 Comments</p>
+        </div>
+
       </div>
 
-      <div className=" text-sm">
 
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laboriosam amet sed voluptas laborum quibusdam aperiam nesciunt vel magnam libero nam!  labndus dicta ullam ducimus.
+    </div>
+  )
+}
+
+
+
+
+
+const SearchByDiv = () => {
+
+  const [expandCat, setExpandCat] = useState(false)
+
+  const [expandHash, setExpandHash] = useState(false)
+
+  return (
+    <div className=" w-11/12 sm:w-4/6 flex justify-around px-1 sm:px-5  mt-7">
+
+      <div>
+        <p>Search By 👉</p>
       </div>
 
+      <div>
+        <p
+          className=" border-b"
+          onClick={() => { setExpandCat(!expandCat) }}
+        >Category</p>
 
-      <div className=" flex gap-2 text-violet-500 font-semibold ">
-        <p>#HTML</p>
-        <p>#CSS</p>
-        <p>#JS</p>
-        <p>#ReactJs</p>
+        <div
+          className={` border  ${!expandCat ? " border-0 w-0 h-0" : "w-28 h-28"} transition-all `}
+        ></div>
       </div>
 
-      <div className=" flex gap-5 text-xs">
-        <p>2 Likes</p>
-        <p>1 Comments</p>
+      <div>
+        <p
+          className=" border-b"
+          onClick={() => { setExpandHash(!expandHash) }}
+        >#Hashthats</p>
+
+        <div
+          className={` border  ${!expandHash ? " border-0 w-0 h-0" : "w-28 h-28"} transition-all `}
+        ></div>
       </div>
-
-
 
     </div>
   )
