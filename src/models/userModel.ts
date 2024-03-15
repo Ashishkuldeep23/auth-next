@@ -18,6 +18,11 @@ const userSchema = new mongoose.Schema({
         required: [true, "Please provide a password"],
         trim: true
     },
+    profilePic: {
+        type: String,
+        default : "https://res.cloudinary.com/dlvq8n2ca/image/upload/v1701708322/jual47jntd2lpkgx8mfx.png"
+
+    },
 
     isVerified: {
         type: Boolean,

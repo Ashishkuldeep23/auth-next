@@ -10,6 +10,7 @@ import { logInUser, useUserState } from '@/redux/slices/UserSlice';
 import MainLoader from '../components/MainLoader';
 import { useThemeData } from '@/redux/slices/ThemeSlice';
 import HomeButton from '../components/HomeButton';
+import LogInWithGoogle from '../components/LogInWithGoogle';
 
 
 
@@ -129,7 +130,7 @@ const LoginPage = () => {
                             <div className="mt-2 relative">
                                 <input
                                     value={userData.password}
-                                    onChange={(e) => { setUserData({ ...userData, password: e.target.value }) }}
+                                    onChange={(e) => { setUserData({ ...userData, password: e.target.value }); setPassType(false) }}
                                     id="password"
                                     name="password"
                                     // type="password"
@@ -159,6 +160,9 @@ const LoginPage = () => {
                 <div className=' md:w-1/4 mt-2 flex  justify-end'>
                     <Link href={"/signup"}>Go to SingUp page.</Link>
                 </div>
+
+                <LogInWithGoogle />
+
             </div>
         </>
     )

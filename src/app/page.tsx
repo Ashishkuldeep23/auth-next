@@ -76,6 +76,10 @@ function Card({ ele }: any) {
 
   const themeMode = useThemeData().mode
 
+  const promptText = "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laboriosam amet sed voluptas laborum quibusdam aperiam nesciunt vel magnam libero nam!  labndus dicta ullam ducimus."
+
+  const charactersWant = 90
+
   return (
     <div
       onClick={() => { console.log(ele) }}
@@ -91,12 +95,21 @@ function Card({ ele }: any) {
         <div className="rounded flex gap-1.5 items-center">
 
           <img className=" rounded-full w-8" src="https://res.cloudinary.com/dlvq8n2ca/image/upload/v1701708322/jual47jntd2lpkgx8mfx.png" alt="" />
-          <p>Name</p>
+          <p>Name Kumar</p>
         </div>
 
-        <div className=" text-sm">
+        <div
 
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laboriosam amet sed voluptas laborum quibusdam aperiam nesciunt vel magnam libero nam!  labndus dicta ullam ducimus.
+          // style={{ overflow : "hidden" , textOverflow : "ellipsis", whiteSpace : "balance"}}
+          className=" text-sm"
+        >
+
+          {
+            promptText.toString().length > charactersWant ? `${promptText.slice(0,charactersWant)}...` : `${promptText}`
+
+            // promptText
+          }
+
         </div>
 
 
@@ -130,35 +143,70 @@ const SearchByDiv = () => {
   const [expandHash, setExpandHash] = useState(false)
 
   return (
-    <div className=" w-11/12 sm:w-4/6 flex justify-around px-1 sm:px-5  mt-7">
 
-      <div>
-        <p>Search By 👉</p>
-      </div>
+    <>
+      <div className=" w-11/12 sm:w-4/6 flex flex-col items-center px-1 sm:px-5  mt-7">
 
-      <div>
-        <p
-          className=" border-b"
-          onClick={() => { setExpandCat(!expandCat) }}
-        >Category</p>
+        <div className="w-full flex justify-around flex-wrap">
+
+
+          <div>
+            <p>Search By 👉</p>
+          </div>
+
+          <div>
+            <p
+              className=" border-b hover:cursor-pointer"
+              onClick={() => { setExpandCat(!expandCat); setExpandHash(false); }}
+            >Category</p>
+
+
+          </div>
+
+          <div>
+            <p
+              className=" border-b hover:cursor-pointer"
+              onClick={() => { setExpandHash(!expandHash); setExpandCat(false); }}
+            >#Hashthats</p>
+
+
+          </div>
+
+        </div>
+
 
         <div
-          className={` border  ${!expandCat ? " border-0 w-0 h-0" : "w-28 h-28"} transition-all `}
-        ></div>
-      </div>
+          className={` border mt-2 rounded flex gap-2 flex-wrap justify-around px-1 overflow-hidden ${!expandCat ? " border-0 w-1/2 h-0 opacity-100" : " w-full  opacity-100"} transition-all `}
+        >
 
-      <div>
-        <p
-          className=" border-b"
-          onClick={() => { setExpandHash(!expandHash) }}
-        >#Hashthats</p>
+          {
+            ['General', "Tech", "News", "etc", 'General', "Tech", "News", "etc"].map((ele, i) => {
+              return <p className=" font-bold text-violet-500 " key={i}>{ele}</p>
+            })
+          }
+
+        </div>
 
         <div
-          className={` border  ${!expandHash ? " border-0 w-0 h-0" : "w-28 h-28"} transition-all `}
-        ></div>
+          className={` border mt-2 rounded flex gap-2 flex-wrap justify-around px-1 overflow-hidden ${!expandHash ? " border-0 w-1/2 h-0 opacity-100" : " w-full opacity-100"} transition-all `}
+        >
+
+
+          {
+            ['#GoogleLogin', "#ReactJs", "#Html", '#CSS', "#TechJobs"].map((ele, i) => {
+              return <p className=" font-bold text-violet-500 " key={i}>{ele}</p>
+            })
+          }
+        </div>
+
+
+
+
       </div>
 
-    </div>
+
+    </>
+
   )
 }
 

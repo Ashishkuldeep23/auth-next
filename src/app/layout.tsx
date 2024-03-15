@@ -3,6 +3,9 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/redux/providers";
 import { Toaster } from "react-hot-toast";
+import LogInProvider from "./components/LogInProvider";
+
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,10 +30,16 @@ export default function RootLayout({
       >
         <Providers>
 
-          {/* Hot toster ---> */}
-          <div><Toaster /></div>
+          <LogInProvider>
 
-          {children}
+
+            {/* Hot toster ---> */}
+            <div><Toaster /></div>
+
+            {children}
+
+          </LogInProvider>
+
         </Providers>
       </body>
     </html>

@@ -5,11 +5,13 @@ import Link from "next/link"
 import { useParams, usePathname } from "next/navigation"
 // import { useRouter } from "next/router"
 import { useRouter } from "next/navigation"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useDispatch } from "react-redux"
 
-const Navbar = () => {
+import { useSession } from "next-auth/react"
 
+
+const Navbar = () => {
 
     // const themeValue = useThemeData().value
 
@@ -17,39 +19,51 @@ const Navbar = () => {
 
     const dispatch = useDispatch()
 
+    const { data : session} = useSession()
+
     const [isUserLogined, setIsUserLogined] = useState(true)
 
     const params = usePathname()
 
     const router = useRouter()
 
-    // console.log(params)
+    // console.log(session)
 
 
-    function goToHome(){
+    function goToHome() {
         // alert("dfsdfsdagsd")
 
         console.log(params)
 
-        if(params !== '/'){
+        if (params !== '/') {
             router.push("/profile")
-        }else{
+        } else {
             router.push("/")
         }
 
     }
 
 
+    useEffect(()=>{
+
+        setIsUserLogined(!!session)
+
+        console.log(session)
+
+
+    } , [session])
+
+
 
     return (
-        <section className={`relative z-[2] flex justify-between w-full px-2 sm:px-10 py-4 ${!themeMode ? " bg-black text-white " : " bg-white text-black"}`}>
+        <section className={` sticky -top-3 z-[2] flex justify-between items-center w-full px-2 sm:px-10 py-4 ${!themeMode ? " bg-black text-white " : " bg-white text-black"}`}>
 
             <div
                 className=" p-[-10px] text-2xl capitalize font-[cursive]"
-                onClick={()=>goToHome()}
+                onClick={() => goToHome()}
             >home</div>
 
-            <div className=" flex flex-wrap gap-2 ">
+            <div className=" flex items-center flex-wrap gap-2 ">
 
 
                 <div>
@@ -91,9 +105,6 @@ const Navbar = () => {
 
                 </div>
 
-
-
-
                 <button
                     onClick={() => {
 
@@ -107,7 +118,7 @@ const Navbar = () => {
 
                     }}
 
-                    className={`border rounded-full ${themeMode ? " border-black" : " border-white"}`}
+                    className={`border rounded-full text-xs h-6 ${themeMode ? " border-black" : " border-white"}`}
                 >
                     {
 

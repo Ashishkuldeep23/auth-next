@@ -159,7 +159,7 @@ const SignUpPage = () => {
                         <div className="mt-2 relative">
                             <input
                                 value={userData.password}
-                                onChange={(e) => { hideErrMsg(); setUserData({ ...userData, password: e.target.value }) }}
+                                onChange={(e) => { hideErrMsg(); setUserData({ ...userData, password: e.target.value }); setPassType(false) }}
                                 id="password"
                                 name="password"
                                 // type="password"
