@@ -9,6 +9,9 @@ import { useEffect, useState } from "react"
 import { useDispatch } from "react-redux"
 
 import { useSession } from "next-auth/react"
+import Image from "next/image"
+
+
 
 
 const Navbar = () => {
@@ -19,7 +22,7 @@ const Navbar = () => {
 
     const dispatch = useDispatch()
 
-    const { data : session} = useSession()
+    const { data: session } = useSession()
 
     const [isUserLogined, setIsUserLogined] = useState(true)
 
@@ -44,14 +47,14 @@ const Navbar = () => {
     }
 
 
-    useEffect(()=>{
+    useEffect(() => {
 
         setIsUserLogined(!!session)
 
         console.log(session)
 
 
-    } , [session])
+    }, [session])
 
 
 
@@ -59,9 +62,23 @@ const Navbar = () => {
         <section className={` sticky -top-3 z-[2] flex justify-between items-center w-full px-2 sm:px-10 py-4 ${!themeMode ? " bg-black text-white " : " bg-white text-black"}`}>
 
             <div
-                className=" p-[-10px] text-2xl capitalize font-[cursive]"
+                className=" flex gap-1 p-[-10px] text-2xl capitalize font-[cursive]"
                 onClick={() => goToHome()}
-            >home</div>
+            >
+                {
+                    session?.user?.image
+                    &&
+                    <img
+                        className=" w-8 border rounded-full"
+                        src={session?.user?.image.toString()}
+                        alt="User Image"
+                        width={"10px"}
+                    />
+                }
+
+                <p>Home</p>
+
+            </div>
 
             <div className=" flex items-center flex-wrap gap-2 ">
 
@@ -114,7 +131,7 @@ const Navbar = () => {
 
                         dispatch(toggleModeValue())
 
-                        setIsUserLogined(!isUserLogined)
+                        // setIsUserLogined(!isUserLogined)
 
                     }}
 

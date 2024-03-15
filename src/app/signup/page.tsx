@@ -10,6 +10,7 @@ import { createNewUser, useUserState } from '@/redux/slices/UserSlice';
 import MainLoader from '../components/MainLoader';
 import { useThemeData } from '@/redux/slices/ThemeSlice';
 import HomeButton from '../components/HomeButton';
+import LogInWithGoogle from '../components/LogInWithGoogle';
 
 
 const SignUpPage = () => {
@@ -189,6 +190,9 @@ const SignUpPage = () => {
                 <div className=' md:w-1/4 mt-2 flex  justify-end'>
                     <Link href={"/login"}>Already have account!</Link>
                 </div>
+
+                <LogInWithGoogle />
+
             </div>
         </>
     )
