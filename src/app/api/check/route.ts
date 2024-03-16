@@ -8,7 +8,7 @@ export async function GET(req: NextRequest) {
 
         // console.log(req.headers[Symbol(headers map)])
 
-        console.log(req.headers.get('cookie'))
+        // console.log(req.headers.get('cookie'))
 
 
         return NextResponse.json({ success: true, data: ["data1", "data2"], message: "User created." }, { status: 201 })
