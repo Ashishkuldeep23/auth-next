@@ -38,11 +38,11 @@ const themeSlice = createSlice({
             if (!state.mode) {
                 state.value = "white"
                 state.mode = true
-                localStorage.setItem("authNext", JSON.stringify(true))
+                localStorage.setItem("authNextDark", JSON.stringify(true))
             } else {
                 state.value = 'black'
                 state.mode = false
-                localStorage.setItem("authNext", JSON.stringify(false))
+                localStorage.setItem("authNextDark", JSON.stringify(false))
             }
 
         },
@@ -50,7 +50,7 @@ const themeSlice = createSlice({
         setModeOnLoad(state, action) {
             
             let { mode } = action.payload
-            console.log(mode)
+            // console.log(mode)
 
             state.mode = mode
         } ,

@@ -55,6 +55,7 @@ export const logInUser = createAsyncThunk('user/login', async (body: { email: st
 
 export interface UserDataInterface {
     username: string,
+    userProfile: string,
     email: string,
     isVerified: boolean,
     isAdmin: boolean,
@@ -65,7 +66,7 @@ interface ThemeInter {
     isLoading: boolean,
     isFullfilled: boolean,
     isError: boolean,
-    errMsg : string
+    errMsg: string
     userData: UserDataInterface
 }
 
@@ -74,9 +75,10 @@ const initialState: ThemeInter = {
     isLoading: false,
     isFullfilled: false,
     isError: false,
-    errMsg : "",
+    errMsg: "",
     userData: {
         username: "",
+        userProfile: "",
         email: "",
         isVerified: false,
         isAdmin: false
@@ -88,6 +90,13 @@ const userSlice = createSlice({
     initialState,
     reducers: {
 
+        setUserDataBySession(state , action){
+
+            // console.log(action.payload)
+            state.userData.username = action.payload.email
+            state.userData.userProfile = action.payload.image
+            state.userData.email = action.payload.email
+        }
 
     },
     extraReducers: (builder) => {
@@ -179,7 +188,7 @@ const userSlice = createSlice({
 
 
 
-export const { } = userSlice.actions
+export const { setUserDataBySession } = userSlice.actions
 
 export const useUserState = () => useSelector((state: RootState) => state.userReducer)
 

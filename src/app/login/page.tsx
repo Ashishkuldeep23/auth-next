@@ -85,7 +85,7 @@ const LoginPage = () => {
 
             <MainLoader isLoading={isLoading} />
 
-            <div className={`w-full h-screen flex flex-col items-center py-[25vh]  ${!themeMode ? " bg-black text-white " : " bg-white text-black"}`}>
+            <div className={`w-full h-screen flex flex-col items-center py-[20vh]  ${!themeMode ? " bg-black text-white " : " bg-white text-black"}`}>
 
                 <HomeButton />
 

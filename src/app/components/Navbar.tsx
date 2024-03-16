@@ -8,8 +8,9 @@ import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { useDispatch } from "react-redux"
 
-import { useSession } from "next-auth/react"
+import { useSession, signOut } from "next-auth/react"
 import Image from "next/image"
+import { setUserDataBySession } from "@/redux/slices/UserSlice"
 
 
 
@@ -22,15 +23,13 @@ const Navbar = () => {
 
     const dispatch = useDispatch()
 
-    const { data: session } = useSession()
+    const { data: session, status } = useSession()
 
     const [isUserLogined, setIsUserLogined] = useState(true)
 
     const params = usePathname()
 
     const router = useRouter()
-
-    // console.log(session)
 
 
     function goToHome() {
@@ -47,19 +46,27 @@ const Navbar = () => {
     }
 
 
+    // console.log(status)
+
     useEffect(() => {
-
         setIsUserLogined(!!session)
+        // console.log(session)
 
-        console.log(session)
+        // console.log({ session })
 
+        if(session){
+
+            let user = session.user
+
+            dispatch(setUserDataBySession({...user}))
+        }
 
     }, [session])
 
 
 
     return (
-        <section className={` sticky -top-3 z-[2] flex justify-between items-center w-full px-2 sm:px-10 py-4 ${!themeMode ? " bg-black text-white " : " bg-white text-black"}`}>
+        <section className={` border-b sticky -top-4 z-[2] flex justify-between items-center w-full px-2 sm:px-10 py-4 ${!themeMode ? " bg-black text-white border-zinc-700 " : " bg-white text-black border-zinc-300"}`}>
 
             <div
                 className=" flex gap-1 p-[-10px] text-2xl capitalize font-[cursive]"
@@ -102,21 +109,19 @@ const Navbar = () => {
                             </div>
 
                             :
-                            <>
 
-                                <div className=" flex flex-wrap gap-1">
-                                    <button
-                                        onClick={() => { router.push("/new-post") }}
+                            <div className=" flex flex-wrap gap-1">
+                                <button
+                                    onClick={() => { router.push("/new-post") }}
 
-                                        className={` border rounded-full px-2 py-0.5 text-sm font-bold ${themeMode ? " bg-black border-black text-white " : " border-white bg-white text-black"}`}
-                                    >Create Post</button>
-                                    <button
-                                        onClick={() => { alert('SignOut Fn') }}
+                                    className={` border rounded-full px-2 py-0.5 text-sm font-bold ${themeMode ? " bg-black border-black text-white " : " border-white bg-white text-black"}`}
+                                >Create Post</button>
+                                <button
+                                    onClick={() => { signOut() }}
+                                    className={`border rounded-full px-2 py-0.5 text-sm font-bold ${themeMode ? "border-red-900 " : " border-red-100 "}`}
+                                >SignOut</button>
+                            </div>
 
-                                        className={`border rounded-full px-2 py-0.5 text-sm font-bold ${themeMode ? "border-red-900 " : " border-red-100 "}`}
-                                    >SignOut</button>
-                                </div>
-                            </>
                     }
 
 

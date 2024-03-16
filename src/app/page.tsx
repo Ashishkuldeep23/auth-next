@@ -1,15 +1,31 @@
 'use client'
 
-import { useThemeData } from "@/redux/slices/ThemeSlice";
+import { setModeOnLoad, useThemeData } from "@/redux/slices/ThemeSlice";
 
 import Navbar from "./components/Navbar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 
 export default function Home() {
 
   const themeMode = useThemeData().mode
 
+  const dispatch = useDispatch()
+
   // console.log(themeMode)
+
+
+  useEffect(() => {
+
+    let getPrivousThemeValue = localStorage.getItem("authNextDark")
+
+    if (getPrivousThemeValue) {
+      getPrivousThemeValue = JSON.parse(getPrivousThemeValue)
+
+      // console.log(getPrivousThemeValue)
+      dispatch(setModeOnLoad({ mode: getPrivousThemeValue }))
+    }
+  }, [])
 
   return (
     <main className={`flex min-h-screen flex-col items-center gap-10 ${!themeMode ? " bg-black text-white " : " bg-white text-black"}`}>
@@ -31,11 +47,12 @@ export default function Home() {
 
             <input
               type="text"
-              className=" mt-5 w-11/12 sm:w-4/6 rounded text-xl shadow-lg shadow-slate-300 border"
+              className=" text-black p-0.5 px-2 font-bold mt-5 w-11/12 sm:w-4/6 rounded-full shadow-lg shadow-slate-300  border "
+              placeholder="Search for prompt here."
+
             />
 
           </div>
-
 
 
           <SearchByDiv />
@@ -49,7 +66,7 @@ export default function Home() {
 
           {
 
-            [null, null, null, null, null, null, null].map((ele, i) => {
+            [null, null, null, null, null, null, null, null, null, null].map((ele, i) => {
               return (
 
                 <Card key={i} ele={ele} />
@@ -66,8 +83,6 @@ export default function Home() {
     </main>
   );
 }
-
-
 
 
 
@@ -105,7 +120,7 @@ function Card({ ele }: any) {
         >
 
           {
-            promptText.toString().length > charactersWant ? `${promptText.slice(0,charactersWant)}...` : `${promptText}`
+            promptText.toString().length > charactersWant ? `${promptText.slice(0, charactersWant)}...` : `${promptText}`
 
             // promptText
           }
@@ -131,8 +146,6 @@ function Card({ ele }: any) {
     </div>
   )
 }
-
-
 
 
 

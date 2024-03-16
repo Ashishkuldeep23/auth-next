@@ -3,6 +3,21 @@
 @tailwind utilities;
 
 
+*{
+    scroll-behavior: smooth;
+}
+
+
+::-webkit-scrollbar{
+    width: 4px;
+    background-color: rgb(144, 144, 144);
+}
+
+
+::-webkit-scrollbar-thumb{
+    border-radius: 5vh;
+    background-color: black;
+}
 
 
 #ai_heading {

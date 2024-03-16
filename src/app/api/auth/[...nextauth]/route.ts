@@ -5,6 +5,8 @@ import NextAuth from "next-auth";
 
 import GoogleProvider from "next-auth/providers/google";
 
+import GitHubProvider from "next-auth/providers/github";
+
 
 const clientIdText = process.env.GOOGLE_ID!
 const clientSecretText = process.env.GOOGLE_SECRATE!
@@ -17,6 +19,10 @@ const clientSecretText = process.env.GOOGLE_SECRATE!
 //     }
 // )
 
+// const gitClientId = "2bc666d4920090979952"
+// const gitClientSecrate = "80493608c01f8b211b0c3decf307dd9a8a4e4d1d"
+
+
 
 const handler = NextAuth({
     providers: [
@@ -26,18 +32,13 @@ const handler = NextAuth({
         })
     ],
 
-    // async session({session} : any){
-
-    // },
 
 
     callbacks: {
 
+        async session({ session  }: any) {
 
-
-        async session({ session }: any) {
-
-            // console.log({ session })
+            // console.log({ token })
 
             const sessionUserData = await User.findOne({ email: session.user.email })
 
@@ -48,8 +49,6 @@ const handler = NextAuth({
 
             return session;
         },
-
-
 
         async signIn({ profile }: any) {
             try {

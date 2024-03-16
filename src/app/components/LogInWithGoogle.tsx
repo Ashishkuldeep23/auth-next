@@ -14,7 +14,7 @@ const LogInWithGoogle = () => {
 
     const themeMode = useThemeData().mode
 
-    const { data : session} = useSession()
+    const { data: session } = useSession()
 
     const router = useRouter()
 
@@ -22,13 +22,13 @@ const LogInWithGoogle = () => {
 
 
 
-    useEffect(()=>{
+    useEffect(() => {
 
-        if(session){
+        if (session) {
             router.push("/")
         }
 
-    } , [session])
+    }, [session])
 
 
 
@@ -38,13 +38,15 @@ const LogInWithGoogle = () => {
 
             const res = await getProviders()
 
+            // console.log(res)
+
             setProvider(res)
         }
 
 
         setProviders();
 
-    } , [])
+    }, [])
 
 
     return (
@@ -67,19 +69,24 @@ const LogInWithGoogle = () => {
 
 
             {
-                provider && Object.values(provider).map((prov : any) => (
+                provider && Object.values(provider).map((prov: any) => (
                     <button
-                    type='button'
-                    key={prov.name}
-                    onClick={()=>{signIn(prov.id)}}
+                        type='button'
+                        key={prov.name}
+                        onClick={() => {
+                            // console.log(prov)
+                            signIn(prov.id)
+                        }}
                     >
-                         <p className=" mt-2.5 px-2 rounded bg-red-500 text-white font-bold">Google</p>
+                        <p
+                            className={` mt-2.5 px-2 rounded text-white font-bold ${prov.id === "google" ? "bg-red-500" : "bg-blue-500"}`}
+                        >{prov?.name}</p>
                     </button>
-                ))
-            }
+    ))
+}
 
 
-        </div>
+        </div >
     )
 }
 
