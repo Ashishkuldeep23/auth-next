@@ -3,7 +3,7 @@ import { configureStore } from "@reduxjs/toolkit"
 
 import themeReducer from "./slices/ThemeSlice"
 import userReducer from "./slices/UserSlice"
-
+import postReducer from './slices/PostSlice'
 
 
 
@@ -13,6 +13,7 @@ export const store = configureStore({
     reducer: {
         themeReducer,
         userReducer,
+        postReducer
         // userRedcer,
         // productReducer,
         // modalReducer,

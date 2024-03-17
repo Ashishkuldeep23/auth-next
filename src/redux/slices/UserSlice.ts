@@ -138,7 +138,6 @@ const userSlice = createSlice({
 
                 state.isLoading = false
                 state.isError = true
-
                 toast.error(` ${action.error.message || "SignUp failed"}`)
                 state.errMsg = action.error.message || 'Error'
             })
@@ -185,7 +184,6 @@ const userSlice = createSlice({
 
     }
 })
-
 
 
 export const { setUserDataBySession } = userSlice.actions

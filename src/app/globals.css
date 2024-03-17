@@ -20,7 +20,7 @@
 }
 
 
-#ai_heading {
+.ai_heading {
 
     color: transparent;
 
@@ -41,5 +41,4 @@
 
 .card_background{
     background: linear-gradient(40deg, #ff7100, #ff7100 , #00dcff);
-
 }

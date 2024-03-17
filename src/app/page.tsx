@@ -5,12 +5,15 @@ import { setModeOnLoad, useThemeData } from "@/redux/slices/ThemeSlice";
 import Navbar from "./components/Navbar";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import { PostInterFace, getAllPosts, usePostData } from "@/redux/slices/PostSlice";
+import { AppDispatch } from "@/redux/store";
+import MainLoader from "./components/MainLoader";
 
 export default function Home() {
 
   const themeMode = useThemeData().mode
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch<AppDispatch>()
 
   // console.log(themeMode)
 
@@ -41,7 +44,8 @@ export default function Home() {
           <div className=" px-4 sm:px-10 flex flex-col items-center text-center ">
 
             <h1 className="text-4xl sm:text-6xl font-bold">Discover & Share</h1>
-            <h1 id="ai_heading" className=" text-4xl sm:text-6xl font-bold pb-2">AI-Powered Prompts</h1>
+            <h1 className="ai_heading text-4xl sm:text-6xl font-bold pb-2">AI-Powered Prompts </h1>
+            {/* <p className="ai_heading font-extrabold"><span>(Mini blogging)</span></p> */}
 
             <h3 className=" w-11/12 sm:w-4/6 text-sm sm:text-xl leading-4 sm:leading-6 font-semibold">PromptiPedia is an open-surce AI prompting tool form mordern world to discover, create and share creative prompts </h3>
 
@@ -61,22 +65,7 @@ export default function Home() {
         </div>
 
 
-        <div className="sm:px-6 mt-16 flex gap-5 p-0.5 flex-wrap justify-center ">
-
-
-          {
-
-            [null, null, null, null, null, null, null, null, null, null].map((ele, i) => {
-              return (
-
-                <Card key={i} ele={ele} />
-
-              )
-            })
-          }
-
-        </div>
-
+        <AllPostDiv />
 
       </div>
 
@@ -85,38 +74,84 @@ export default function Home() {
 }
 
 
+function AllPostDiv() {
+
+  const allPostData = usePostData().allPost
+  const isLoading = usePostData().isLoading
+
+  const dispatch = useDispatch<AppDispatch>()
 
 
-function Card({ ele }: any) {
+  useEffect(() => {
+    if (allPostData.length <= 0) {
+      dispatch(getAllPosts())
+    }
+  }, [])
+
+  return (
+
+    <div className=" relative sm:px-6 mt-16 flex gap-5 p-0.5 flex-wrap justify-center items-start ">
+
+      <MainLoader isLoading={isLoading} />
+
+      {
+
+        allPostData.length > 0
+          ?
+
+          allPostData.map((ele) => {
+            return (
+              <Card key={ele.id} ele={ele} />
+            )
+          })
+
+          : <></>
+
+        // : [null, null, null, null, null, null, null, null, null, null].map((ele, i) => {
+        //   return (
+
+        //     <Card key={i} ele={ele} />
+
+        //   )
+        // })
+      }
+
+    </div>
+  )
+}
+
+function Card({ ele }: { ele: PostInterFace }) {
 
   const themeMode = useThemeData().mode
 
-  const promptText = "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laboriosam amet sed voluptas laborum quibusdam aperiam nesciunt vel magnam libero nam!  labndus dicta ullam ducimus."
+  const promptText = ele.promptReturn
 
   const charactersWant = 90
 
   return (
     <div
-      onClick={() => { console.log(ele) }}
+      // onClick={() => { console.log(ele) }}
 
       style={{ padding: "3px" }}
       className=" bg-gradient-to-tr from-cyan-400  w-72 sm:w-80  sm:p-2 rounded hover:cursor-pointer hover:scale-105 sm:hover:scale-110 transition-all"
     >
 
-
       <div className={` p-1 ${!themeMode ? " bg-black text-white " : " bg-white text-black"}`}>
 
-
-        <div className="rounded flex gap-1.5 items-center">
+        <div className="rounded-t flex gap-1.5 items-center border-b">
 
           <img className=" rounded-full w-8" src="https://res.cloudinary.com/dlvq8n2ca/image/upload/v1701708322/jual47jntd2lpkgx8mfx.png" alt="" />
           <p>Name Kumar</p>
         </div>
 
-        <div
+        <div className=" flex justify-between flex-wrap gap-1">
+          <p className="">{ele.title}</p>
+          <p className=" ml-auto text-xs">({ele.category})</p>
+        </div>
 
-          // style={{ overflow : "hidden" , textOverflow : "ellipsis", whiteSpace : "balance"}}
-          className=" text-sm"
+        <div className=" text-sm"
+
+        // style={{ overflow : "hidden" , textOverflow : "ellipsis", whiteSpace : "balance"}}
         >
 
           {
@@ -127,12 +162,23 @@ function Card({ ele }: any) {
 
         </div>
 
-
         <div className=" flex gap-2 text-violet-500 font-semibold ">
-          <p>#HTML</p>
-          <p>#CSS</p>
-          <p>#JS</p>
-          <p>#ReactJs</p>
+          {
+
+            ele.hashthats.length > 0
+
+              ?
+
+              ele.hashthats.map((hash, i) => {
+                return <p key={i}>#{hash}</p>
+              })
+
+              : <>
+                <p>#promp</p>
+                <p>#ai</p>
+                <p>#write</p>
+              </>
+          }
         </div>
 
         <div className=" flex gap-5 text-xs">
@@ -142,12 +188,9 @@ function Card({ ele }: any) {
 
       </div>
 
-
     </div>
   )
 }
-
-
 
 const SearchByDiv = () => {
 
