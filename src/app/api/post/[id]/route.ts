@@ -1,14 +1,14 @@
 
 import { connect } from "@/dbConfig/dbConfig";
 import Post from "@/models/postModel";
-import { NextApiRequest, NextApiResponse } from "next";
-import { NextResponse } from "next/server"
+// import { NextApiRequest, NextApiResponse } from "next";
+import { NextRequest , NextResponse } from "next/server"
 import { isValidObjectId } from "mongoose"
 
 connect()
 
 
-export async function GET(req: NextApiRequest, context: any) {
+export async function GET(req: NextRequest, context: any) {
 
     try {
 
