@@ -35,6 +35,10 @@ const postSchema = new mongoose.Schema({
         type: [String],
         default: [],
     },
+    author: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "users"
+    },
     likes: {
         type: Number,
         default: 0

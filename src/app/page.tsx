@@ -138,7 +138,7 @@ function Card({ ele }: { ele: PostInterFace }) {
 
       <div className={` p-1 ${!themeMode ? " bg-black text-white " : " bg-white text-black"}`}>
 
-        <div className="rounded-t flex gap-1.5 items-center border-b">
+        <div className="rounded-t flex gap-1.5 items-center border-b border-cyan-400">
 
           <img className=" rounded-full w-8" src="https://res.cloudinary.com/dlvq8n2ca/image/upload/v1701708322/jual47jntd2lpkgx8mfx.png" alt="" />
           <p>Name Kumar</p>
