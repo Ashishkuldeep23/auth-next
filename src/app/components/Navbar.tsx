@@ -37,7 +37,7 @@ const Navbar = () => {
 
         console.log(params)
 
-        if (params !== '/') {
+        if (params === '/') {
             router.push("/profile")
         } else {
             router.push("/")
@@ -69,7 +69,7 @@ const Navbar = () => {
         <section className={` border-b sticky -top-4 z-[2] flex justify-between items-center w-full px-2 sm:px-10 py-4 ${!themeMode ? " bg-black text-white border-zinc-700 " : " bg-white text-black border-zinc-300"}`}>
 
             <div
-                className=" flex gap-1 p-[-10px] text-2xl capitalize font-[cursive]"
+                className=" flex gap-1 p-[-10px] text-2xl capitalize font-[cursive] hover:cursor-pointer"
                 onClick={() => goToHome()}
             >
                 {

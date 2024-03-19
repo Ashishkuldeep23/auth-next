@@ -9,6 +9,10 @@ const NewPostPage = () => {
 
     const themeMode = useThemeData().mode
 
+
+    const classNamesForInputs = ` w-[68%] border rounded-sm px-1 ${!themeMode ? " bg-slate-900 text-white" : " bg-slate-100 text-black"}`
+
+
     return (
         <>
 
@@ -38,7 +42,7 @@ const NewPostPage = () => {
 
                                     <div className=''>
                                         <input
-                                            className={` w-4/5 border rounded-sm px-1 ${!themeMode ? " bg-slate-900 text-white" : " bg-slate-100 text-black"}`}
+                                            className={`${classNamesForInputs}`}
                                             placeholder="Give title of post"
                                             type={"text"}
                                             id="title"
@@ -58,7 +62,7 @@ const NewPostPage = () => {
                                         <textarea
                                             style={{ resize: "none" }}
                                             placeholder="Give content of post"
-                                            className={` w-4/5 border rounded-sm px-1 ${!themeMode ? " bg-slate-900 text-white" : " bg-slate-100 text-black"}`}
+                                            className={`${classNamesForInputs}`}
                                             name=""
                                             id="content"
                                             rows={3}
@@ -75,14 +79,14 @@ const NewPostPage = () => {
 
                                     <div>
                                         <input
-                                            className={` w-4/5 border rounded-sm px-1 ${!themeMode ? " bg-slate-900 text-white" : " bg-slate-100 text-black"}`}
+                                            className={`${classNamesForInputs}`}
                                             placeholder="Give category of post"
                                             type={"text"}
                                             id="category"
                                         />
 
                                         <label
-                                            className=' pl-2 pr-1 border-b font-semibold'
+                                            className='pl-2 pr-1 border-b font-semibold'
                                             htmlFor="category"
                                         >Category</label>
 
@@ -92,7 +96,7 @@ const NewPostPage = () => {
 
                                     <div>
                                         <input
-                                            className={` w-4/5 border rounded-sm px-1 ${!themeMode ? " bg-slate-900 text-white" : " bg-slate-100 text-black"}`}
+                                            className={`${classNamesForInputs}`}
                                             placeholder="Give url of post"
                                             type={"text"}
                                             id="url"
@@ -109,7 +113,7 @@ const NewPostPage = () => {
 
                                     <div>
                                         <input
-                                            className={` w-4/5 border rounded-sm px-1 ${!themeMode ? " bg-slate-900 text-white" : " bg-slate-100 text-black"}`}
+                                            className={`${classNamesForInputs}`}
                                             placeholder="Give origin of post"
                                             type={"text"}
                                             id="origin"
@@ -125,8 +129,28 @@ const NewPostPage = () => {
 
 
                                     <div>
+
+                                        <div className={` ${!themeMode ? "text-violet-300" : "text-violet-700"} flex flex-wrap items-center gap-1`}>
+
+                                            {
+                                                [null, null, null, null, null, null, null, null, null].map((ele, i) => {
+                                                    return (
+                                                        <p  
+                                                            key={i}
+                                                            className=' border border-cyan-400 pl-2 rounded-md'
+                                                        >#OK
+                                                            <span   
+                                                                onClick={()=>{alert(`Remove ${i}th item.`)}}
+                                                                className=' bg-red-500 rounded-full font-semibold px-1 mx-1 text-white hover:cursor-pointer hover:bg-red-700 '
+                                                            >x</span>
+                                                        </p>
+                                                    )
+                                                })
+                                            }
+                                        </div>
+
                                         <input
-                                            className={` w-4/5 border rounded-sm px-1 ${!themeMode ? " bg-slate-900 text-white" : " bg-slate-100 text-black"}`}
+                                            className={`${classNamesForInputs}`}
                                             placeholder="Give HasThats of post"
                                             type={"text"}
                                             id="HasThats"
@@ -138,11 +162,6 @@ const NewPostPage = () => {
                                         >*Hasthats</label>
 
                                     </div>
-
-
-
-
-
 
                                 </form>
 
