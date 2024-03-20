@@ -83,3 +83,49 @@
         box-shadow: .2em -.2em 0 0 currentcolor;
     }
 }
+
+
+
+/* Masker text div style here --------> */
+
+.single_text {
+    /* transition: 0.35 font-weight , 0.35 color; */
+    transition: 0.35s all;
+}
+
+/* that text */
+
+.single_text:hover {
+    cursor: pointer;
+    font-weight: 100;
+    color: red;
+}
+
+
+/* to right */
+.single_text:hover+.single_text {
+
+    font-weight: 300;
+    color: #fe5f5f;
+}
+
+.single_text:hover+.single_text+.single_text {
+
+    font-weight: 600;
+    color: #faacac;
+}
+
+
+/* to left */
+
+.single_text:has(+ .single_text:hover) {
+
+    font-weight: 300;
+    color: #fe5f5f;
+}
+
+.single_text:has(+ .single_text + .single_text:hover) {
+
+    font-weight: 600;
+    color: #faacac;
+}

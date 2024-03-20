@@ -23,7 +23,7 @@ const Navbar = () => {
 
     const dispatch = useDispatch()
 
-    const { data: session, status } = useSession()
+    const { data: session } = useSession()
 
     const [isUserLogined, setIsUserLogined] = useState(true)
 
@@ -32,13 +32,16 @@ const Navbar = () => {
     const router = useRouter()
 
 
+    // console.log(session)
+
+
     function goToHome() {
         // alert("dfsdfsdagsd")
 
-        console.log(params)
+        // console.log(params)
 
         if (params === '/') {
-            router.push("/profile")
+            router.push(`/profile/${session?.user?.id}`)
         } else {
             router.push("/")
         }
@@ -54,11 +57,11 @@ const Navbar = () => {
 
         // console.log({ session })
 
-        if(session){
+        if (session) {
 
             let user = session.user
 
-            dispatch(setUserDataBySession({...user}))
+            dispatch(setUserDataBySession({ ...user }))
         }
 
     }, [session])
@@ -77,9 +80,10 @@ const Navbar = () => {
                     &&
                     <img
                         className=" w-8 border rounded-full"
-                        src={session?.user?.image.toString()}
-                        alt="User Image"
+                        src={session?.user?.image?.toString()}
+                        alt=""
                         width={"10px"}
+                        onError={(e) => { e.currentTarget.src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwV9k8Uxfa2bIUN1C5bybUsLeU2Ik2YDkAZlp3QYoedLj3QyJfkGs6r51MCrtpCEAlR2Y&usqp=CAU" }}
                     />
                 }
 

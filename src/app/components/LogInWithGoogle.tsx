@@ -5,7 +5,7 @@
 import { useThemeData } from "@/redux/slices/ThemeSlice"
 
 
-import { signIn, signOut, useSession, getProviders } from "next-auth/react"
+import { signIn, useSession, getProviders } from "next-auth/react"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 
@@ -19,17 +19,6 @@ const LogInWithGoogle = () => {
     const router = useRouter()
 
     const [provider, setProvider] = useState<any>(null)
-
-
-
-    useEffect(() => {
-
-        if (session) {
-            router.push("/")
-        }
-
-    }, [session])
-
 
 
     useEffect(() => {
@@ -47,6 +36,17 @@ const LogInWithGoogle = () => {
         setProviders();
 
     }, [])
+
+
+    
+    useEffect(() => {
+
+        if (session) {
+            router.push("/")
+        }
+
+    }, [session])
+
 
 
     return (

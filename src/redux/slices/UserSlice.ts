@@ -90,7 +90,7 @@ const userSlice = createSlice({
     initialState,
     reducers: {
 
-        setUserDataBySession(state , action){
+        setUserDataBySession(state, action) {
 
             // console.log(action.payload)
             state.userData.username = action.payload.email
@@ -111,19 +111,15 @@ const userSlice = createSlice({
 
                 if (action.payload.success === false) {
 
-                    state.userData = action.payload.data
-                    toast.success(`${action.payload.message}`)
-
-                    state.isFullfilled = true
-
+                    toast.error(`${action.payload.message || "SignUp Error"}`)
+                    state.isError = true
+                    state.errMsg = action.payload.message
 
                 } else {
 
-
-                    toast.error(`${action.payload.message || "SignUp Error"}`)
-
-                    state.isError = true
-                    state.errMsg = action.payload.message
+                    state.userData = action.payload.data
+                    toast.success(`${action.payload.message}`)
+                    state.isFullfilled = true
                 }
 
 

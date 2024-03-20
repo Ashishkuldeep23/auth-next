@@ -11,6 +11,7 @@ import MainLoader from '../components/MainLoader';
 import { useThemeData } from '@/redux/slices/ThemeSlice';
 import HomeButton from '../components/HomeButton';
 import LogInWithGoogle from '../components/LogInWithGoogle';
+import { signIn, getProviders } from 'next-auth/react';
 
 
 
@@ -22,7 +23,7 @@ import LogInWithGoogle from '../components/LogInWithGoogle';
 
 const LoginPage = () => {
 
-    const dispatch = useDispatch<AppDispatch>()
+    // const dispatch = useDispatch<AppDispatch>()
 
     const themeMode = useThemeData().mode
 
@@ -44,8 +45,12 @@ const LoginPage = () => {
     })
 
 
+    const [provider, setProvider] = useState<any>(null)
+
 
     function onSubmiHander(e: React.FormEvent<HTMLFormElement>) {
+
+
         e.preventDefault()
 
 
@@ -62,10 +67,29 @@ const LoginPage = () => {
         }
 
 
+        // console.log(provider)
 
-        dispatch(logInUser(userData))
+        signIn(provider.credentials.id, { callbackUrl: "/", email: userData.email, password: userData.password })
 
+        // dispatch(logInUser(userData))
     }
+
+    useEffect(() => {
+
+        const setProviders = async () => {
+
+            const res = await getProviders()
+
+            // console.log(res)
+
+            setProvider(res)
+        }
+
+
+        setProviders();
+
+    }, [])
+
 
 
 
@@ -148,7 +172,10 @@ const LoginPage = () => {
 
                         <div className=' flex'>
 
-                            <button type='submit' className=' px-4 border bg-green-400 text-white font-semibold mt-3 rounded ml-auto mr-10'>LogIn</button>
+                            <button
+                                type='submit'
+                                className=' px-4 border bg-green-400 text-white font-semibold mt-3 rounded ml-auto mr-10'
+                            >LogIn</button>
 
                         </div>
 

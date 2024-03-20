@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { PostInterFace, getAllPosts, usePostData } from "@/redux/slices/PostSlice";
 import { AppDispatch } from "@/redux/store";
 import MainLoader from "./components/MainLoader";
+import MaskerText from "./components/MaskerText";
 
 export default function Home() {
 
@@ -43,11 +44,22 @@ export default function Home() {
 
           <div className=" px-4 sm:px-10 flex flex-col items-center text-center ">
 
-            <h1 className="text-4xl sm:text-6xl font-bold">Discover & Share</h1>
-            <h1 className="ai_heading text-4xl sm:text-6xl font-bold pb-2">AI-Powered Prompts </h1>
+            <h1 className="text-4xl sm:text-6xl font-bold"
+            >
+              <MaskerText text={"Discover & Share"} />
+            </h1>
+            <h1 className="ai_heading text-4xl sm:text-6xl font-bold pb-2"
+            >
+              <MaskerText text={"AI-Powered Prompts"} />
+            </h1>
             {/* <p className="ai_heading font-extrabold"><span>(Mini blogging)</span></p> */}
 
-            <h3 className=" w-11/12 sm:w-4/6 text-sm sm:text-xl leading-4 sm:leading-6 font-semibold">PromptiPedia is an open-surce AI prompting tool form mordern world to discover, create and share creative prompts </h3>
+            <h3 className=" w-11/12 sm:w-4/6 text-sm sm:text-xl leading-4 sm:leading-6 font-semibold"
+            >
+
+              <MaskerText text={"PromptiPedia is an open-surce AI prompting tool form mordern world to discover, create and share creative prompts"} />
+              
+            </h3>
 
             <input
               type="text"

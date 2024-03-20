@@ -39,8 +39,8 @@ const SignUpPage = () => {
 
 
     const userInitialData: UserInitialData = {
-        email: userBackeData.email,
-        username: userBackeData.username,
+        email: userBackeData?.email,
+        username: userBackeData?.username,
         password: "",
     }
 
