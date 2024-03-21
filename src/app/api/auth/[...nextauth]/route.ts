@@ -101,7 +101,7 @@ const handler = NextAuth({
 
 
 
-            session.maxAge = 30 * 24 * 60 * 60  // // // For 30 days.
+            session.maxAge = 30 * 24 * 60 * 60 * 1000  // // // For 30 days.
 
 
             return session;
