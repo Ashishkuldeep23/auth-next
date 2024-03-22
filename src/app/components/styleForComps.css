@@ -4,7 +4,8 @@
     border-radius: 50%;
     width: 88px;
     height: 88px;
-    color: #000;
+    /* color: #000; */
+    /* Now color of one ring is controlled by tailwind on the basis of themeMode value. */
 }
 
 #main_loader:before,

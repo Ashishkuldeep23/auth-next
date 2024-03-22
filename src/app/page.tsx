@@ -157,7 +157,7 @@ function Card({ ele }: { ele: PostInterFace }) {
         </div>
 
         <div className=" flex justify-between flex-wrap gap-1">
-          <p className="">{ele.title}</p>
+          <p className="capitalize">{ele.title}</p>
           <p className=" ml-auto text-xs">({ele.category})</p>
         </div>
 

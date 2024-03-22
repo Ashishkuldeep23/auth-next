@@ -99,10 +99,7 @@ const handler = NextAuth({
             session.user.id = sessionUserData._id.toString();
             // session.expires = Date.now() + ( 3600 * 1000 * 24)
 
-
-
             session.maxAge = 30 * 24 * 60 * 60 * 1000  // // // For 30 days.
-
 
             return session;
         },
@@ -115,7 +112,7 @@ const handler = NextAuth({
 
                 // if (!profile) return false
 
-                console.log({ profile, user })
+                // console.log({ profile, user })
 
                 let email, name, picture
 
