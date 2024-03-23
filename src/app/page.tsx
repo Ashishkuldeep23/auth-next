@@ -54,11 +54,14 @@ export default function Home() {
             </h1>
             {/* <p className="ai_heading font-extrabold"><span>(Mini blogging)</span></p> */}
 
-            <h3 className=" w-11/12 sm:w-4/6 text-sm sm:text-xl leading-4 sm:leading-6 font-semibold"
+            <h3
+              className=" w-11/12 sm:w-4/6 text-sm sm:text-xl leading-4 sm:leading-6 font-semibold"
             >
 
               <MaskerText text={"PromptiPedia is an open-surce AI prompting tool form mordern world to discover, create and share creative prompts"} />
-              
+
+              {/* <MaskerText text={""} /> */}
+
             </h3>
 
             <input

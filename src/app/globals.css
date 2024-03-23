@@ -30,13 +30,10 @@
     /* background: radial-gradient(); */
 
     background: radial-gradient(closest-side, #ff7100, #ff7100 , #00dcff);
-
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     -webkit-text-stroke: 1px var(--text);
 }
-
-
 
 
 .card_background{

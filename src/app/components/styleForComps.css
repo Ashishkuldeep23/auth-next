@@ -99,7 +99,12 @@
 .single_text:hover {
     cursor: pointer;
     font-weight: 100;
+    /* background: #83fcfc; */
     color: red;
+    -webkit-text-fill-color:red ;
+    /* transform: translate(0px 30px); */
+    transform: translateY(-15px) scale(1.25);
+    z-index: 10;
 }
 
 
@@ -108,12 +113,15 @@
 
     font-weight: 300;
     color: #fe5f5f;
+    -webkit-text-fill-color:#fe5f5f ;
+    transform: translateY(-10px)  scale(1.05);
 }
 
 .single_text:hover+.single_text+.single_text {
 
     font-weight: 600;
     color: #faacac;
+    -webkit-text-fill-color:#faacac ;
 }
 
 
@@ -123,10 +131,13 @@
 
     font-weight: 300;
     color: #fe5f5f;
+    -webkit-text-fill-color:#fe5f5f ;
+    transform: translateY(-10px)  scale(1.05);
 }
 
 .single_text:has(+ .single_text + .single_text:hover) {
 
     font-weight: 600;
     color: #faacac;
+    -webkit-text-fill-color:#faacac ;
 }
