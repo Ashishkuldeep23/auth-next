@@ -1,23 +1,38 @@
 'use client'
 
 import { useThemeData } from '@/redux/slices/ThemeSlice'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import HomeButton from '../components/HomeButton'
 import Navbar from '../components/Navbar'
+import { useDispatch } from 'react-redux'
+import { AppDispatch } from '@/redux/store'
+import { createNewPost } from '@/redux/slices/PostSlice'
+import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
+import toast from 'react-hot-toast/headless'
+import Image from "next/image"
+
+
+export interface NewPostType {
+    title: string,
+    category: string,
+    content: string,
+    url: string,
+    origin: string,
+    hashs: string[],
+
+}
+
 
 const NewPostPage = () => {
 
+    const dispatch = useDispatch<AppDispatch>()
+
     const themeMode = useThemeData().mode
 
-    interface NewPostType {
-        title: string,
-        category: string,
-        content: string,
-        url: string,
-        origin: string,
-        hashs: string[],
+    const router = useRouter()
 
-    }
+    const { data: session, status } = useSession()
 
     const [newPostData, setNewPostData] = useState<NewPostType>({
         title: "",
@@ -30,7 +45,6 @@ const NewPostPage = () => {
 
 
     const [newHash, setNewHash] = useState<string>("")
-
 
 
     type TypeCatAndHash = {
@@ -46,7 +60,6 @@ const NewPostPage = () => {
 
 
 
-
     function addNewHash(e: React.KeyboardEvent<HTMLInputElement> | React.MouseEvent<HTMLButtonElement, MouseEvent>) {
 
         e.preventDefault()
@@ -55,7 +68,7 @@ const NewPostPage = () => {
         if (!newHash) return
 
 
-        let newArr = [...newPostData?.hashs, `#${newHash}`]
+        let newArr = [...newPostData?.hashs, `#${newHash.toLowerCase()}`]
         let uniqueArr = new Set(newArr)
 
         // console.log([...uniqueArr])
@@ -81,6 +94,39 @@ const NewPostPage = () => {
 
 
 
+    function submitFormData(even: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+
+        even.preventDefault()
+
+        console.log(session)
+
+        if (status === "unauthenticated") {
+            router.push("/")
+        }
+
+        if (session?.user?.id) {
+            dispatch(createNewPost({ body: newPostData, userId: session?.user?.id }))
+        } else {
+
+            toast.error("Plese Login again.")
+            router.push("/login")
+        }
+
+
+    }
+
+
+
+
+    useEffect(() => {
+
+        // console.log(session?.user?.id)
+
+        if (status === "unauthenticated") {
+            toast.error("Plese Login again.")
+            router.push("/")
+        }
+    }, [session, status])
 
 
 
@@ -110,7 +156,7 @@ const NewPostPage = () => {
 
                                 <form
                                     className=' flex flex-col gap-2'
-                                    onSubmit={() => { }}
+                                    onSubmit={(e) => { submitFormData(e) }}
                                 >
 
 
@@ -360,8 +406,12 @@ const NewPostPage = () => {
 
                                 <div className="rounded-t flex gap-1.5 items-center border-b border-cyan-400">
 
-                                    <img className=" rounded-full w-8" src="https://res.cloudinary.com/dlvq8n2ca/image/upload/v1701708322/jual47jntd2lpkgx8mfx.png" alt="" />
-                                    <p>Name Kumar</p>
+                                    <img
+                                        className=" rounded-full w-8"
+                                        src={`${session?.user?.image || "https://res.cloudinary.com/dlvq8n2ca/image/upload/v1701708322/jual47jntd2lpkgx8mfx.png"}`}
+                                        alt=""
+                                    />
+                                    <p>{session?.user?.name || "Name Kumar"}</p>
                                 </div>
 
                                 <div className=" flex justify-between flex-wrap gap-1">
@@ -386,7 +436,10 @@ const NewPostPage = () => {
                                 </div>
 
 
-                                <div className=' mt-1'>
+                                <div
+                                    className=' mt-1'
+                                    style={{ lineBreak: "anywhere" }}
+                                >
 
                                     {
                                         newPostData.url
@@ -433,7 +486,10 @@ const NewPostPage = () => {
                         </div>
 
                         <div className=' flex justify-end '>
-                            <button className={`px-8 mx-8 my-1 rounded-full font-bold bg-green-400 hover:bg-green-600 transition-all ${themeMode ? "text-green-900" : "text-green-900"}`}>Create</button>
+                            <button
+                                className={`px-8 mx-8 my-1 rounded-full font-bold bg-green-400 hover:bg-green-600 transition-all ${themeMode ? "text-green-900" : "text-green-900"}`}
+                                onClick={(e) => { submitFormData(e) }}
+                            >Create</button>
                         </div>
 
 

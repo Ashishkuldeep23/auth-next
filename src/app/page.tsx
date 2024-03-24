@@ -155,8 +155,18 @@ function Card({ ele }: { ele: PostInterFace }) {
 
         <div className="rounded-t flex gap-1.5 items-center border-b border-cyan-400">
 
-          <img className=" rounded-full w-8" src="https://res.cloudinary.com/dlvq8n2ca/image/upload/v1701708322/jual47jntd2lpkgx8mfx.png" alt="" />
-          <p>Name Kumar</p>
+          <img
+            className=" rounded-full w-8"
+            src={`${ele?.author?.profilePic || "https://res.cloudinary.com/dlvq8n2ca/image/upload/v1701708322/jual47jntd2lpkgx8mfx.png"}`}
+            alt=""
+          />
+          <p>{ele?.author?.username || "Name Kumar"}</p>
+
+          {
+            ele?.author?.isVerified
+            &&
+            <span className=" ml-auto mr-2">✅</span>
+          }
         </div>
 
         <div className=" flex justify-between flex-wrap gap-1">
@@ -197,8 +207,8 @@ function Card({ ele }: { ele: PostInterFace }) {
         </div>
 
         <div className=" flex gap-5 text-xs">
-          <p>2 Likes</p>
-          <p>1 Comments</p>
+          <p>{ele.likes} Likes</p>
+          <p>{ele.comments.length} Comments</p>
         </div>
 
       </div>

@@ -14,6 +14,11 @@ export async function GET(req: NextRequest) {
         // console.log("iktyutryetyr")
 
         let getAllPosts = await Post.find({ isDeleted: false })
+            .sort({ "createdAt": "desc" })
+            // .sort({ 
+            //     createdAt: "-1"
+            // })
+            // .sort(["desc"])
             .populate({
                 path: "author",
                 // match: { isDeleted: false },
@@ -27,7 +32,6 @@ export async function GET(req: NextRequest) {
         if (getAllPosts.length <= 0) {
             NextResponse.json({ success: false, message: `Posts not found. | 404` }, { status: 404 })
         }
-
 
 
         return NextResponse.json({ success: true, data: getAllPosts, message: "All post fetched." }, { status: 201 })

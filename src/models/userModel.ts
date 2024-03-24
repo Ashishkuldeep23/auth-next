@@ -21,7 +21,6 @@ const userSchema = new mongoose.Schema({
     profilePic: {
         type: String,
         default : "https://res.cloudinary.com/dlvq8n2ca/image/upload/v1701708322/jual47jntd2lpkgx8mfx.png"
-
     },
 
     isVerified: {

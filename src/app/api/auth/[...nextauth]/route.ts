@@ -138,7 +138,8 @@ const handler = NextAuth({
                         username: name,
                         email: email,
                         password: "LOG_IN_BY_GOOGLE",
-                        profilePic: picture
+                        profilePic: picture,
+                        isVerified : true
                     }
 
 

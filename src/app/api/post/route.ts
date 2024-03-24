@@ -17,11 +17,17 @@ export async function POST(req: NextRequest) {
 
         // console.log(reqBody)
 
-        const { title, category, promptReturn } = reqBody
+        const { title, category, promptReturn , author } = reqBody
 
         if (!title || !category || !promptReturn) {
             return NextResponse.json({ success: false, message: 'Mandatory fields not given.' }, { status: 404 })
         }
+        
+        if(!author){
+            return NextResponse.json({ success: false, message: 'Author id is not given.' }, { status: 404 })
+
+        }
+
 
 
         let createNewPost = new Post(reqBody)
