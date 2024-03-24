@@ -1,6 +1,6 @@
 'use client'
 
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
+import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import { useSelector } from "react-redux"
 import { RootState } from "../store"
 import toast from "react-hot-toast"
@@ -64,7 +64,7 @@ export interface PostInterFace {
     urlOfPrompt: string,
     aiToolName: string,
     hashthats: string[],
-    author : {
+    author: {
         username: string,
         email: string,
         profilePic: string,
@@ -164,6 +164,8 @@ const psotSlice = createSlice({
 
                     console.log(action.payload.data)
 
+                    state.allPost.unshift(action.payload.data)
+
                 } else {
                     toast.error(`${action.payload.message || "Fetch failed."}`)
                     state.isError = true
@@ -181,6 +183,13 @@ const psotSlice = createSlice({
                 toast.error(` ${action.error.message || "SignUp failed"}`)
                 state.errMsg = action.error.message || 'Error'
             })
+
+
+
+        // // // some reducers that trigger by others ---->
+        // .addCase("post/createNewPost/fulfilled", (state, action: PayloadAction<any, never>) => {
+        //     console.log(action) 
+        // })
 
 
     }

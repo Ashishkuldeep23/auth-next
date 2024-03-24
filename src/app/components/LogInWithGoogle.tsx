@@ -38,7 +38,7 @@ const LogInWithGoogle = () => {
     }, [])
 
 
-    
+
     useEffect(() => {
 
         if (session) {
@@ -69,21 +69,26 @@ const LogInWithGoogle = () => {
 
 
             {
-                provider && Object.values(provider).map((prov: any) => (
-                    <button
-                        type='button'
-                        key={prov.name}
-                        onClick={() => {
-                            // console.log(prov)
-                            signIn(prov.id)
-                        }}
-                    >
-                        <p
-                            className={` mt-2.5 px-2 rounded text-white font-bold ${prov.id === "google" ? "bg-red-500" : "bg-blue-500"}`}
-                        >{prov?.name}</p>
-                    </button>
-    ))
-}
+                provider && Object.values(provider).map((prov: any) => {
+
+                    if(prov?.name === "Password") return <></>
+
+                    return (
+                        <button
+                            type='button'
+                            key={prov.name}
+                            onClick={() => {
+                                // console.log(prov)
+                                signIn(prov.id)
+                            }}
+                        >
+                            <p
+                                className={` mt-2.5 px-2 rounded text-white font-bold ${prov.id === "google" ? "bg-red-500" : "bg-blue-500"}`}
+                            >{prov?.name}</p>
+                        </button>
+                    )
+                })
+            }
 
 
         </div >

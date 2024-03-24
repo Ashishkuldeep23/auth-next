@@ -6,11 +6,12 @@ import HomeButton from '../components/HomeButton'
 import Navbar from '../components/Navbar'
 import { useDispatch } from 'react-redux'
 import { AppDispatch } from '@/redux/store'
-import { createNewPost } from '@/redux/slices/PostSlice'
+import { createNewPost, usePostData } from '@/redux/slices/PostSlice'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import toast from 'react-hot-toast/headless'
 import Image from "next/image"
+import MainLoader from '../components/MainLoader'
 
 
 export interface NewPostType {
@@ -33,6 +34,8 @@ const NewPostPage = () => {
     const router = useRouter()
 
     const { data: session, status } = useSession()
+
+    const { isFullfilled, isLoading } = usePostData()
 
     const [newPostData, setNewPostData] = useState<NewPostType>({
         title: "",
@@ -57,7 +60,6 @@ const NewPostPage = () => {
         hashthasts: ["#ok", "#bk", "#ck"]
 
     })
-
 
 
     function addNewHash(e: React.KeyboardEvent<HTMLInputElement> | React.MouseEvent<HTMLButtonElement, MouseEvent>) {
@@ -93,7 +95,6 @@ const NewPostPage = () => {
     }
 
 
-
     function submitFormData(even: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement, MouseEvent>) {
 
         even.preventDefault()
@@ -119,7 +120,6 @@ const NewPostPage = () => {
 
 
     useEffect(() => {
-
         // console.log(session?.user?.id)
 
         if (status === "unauthenticated") {
@@ -128,6 +128,14 @@ const NewPostPage = () => {
         }
     }, [session, status])
 
+
+    useEffect(() => {
+
+        if (isFullfilled) {
+            router.push("/")
+        }
+
+    }, [isFullfilled])
 
 
     const classNamesForInputs = ` w-[68%] border rounded-sm px-1 ${!themeMode ? " bg-slate-900 text-white" : " bg-slate-100 text-black"}`
@@ -139,6 +147,8 @@ const NewPostPage = () => {
             <div
                 className={`w-full min-h-screen flex flex-col items-center ${!themeMode ? " bg-black text-white " : " bg-white text-black"}`}
             >
+
+                <MainLoader isLoading={isLoading} />
 
                 <Navbar />
 

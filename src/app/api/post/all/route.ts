@@ -34,7 +34,16 @@ export async function GET(req: NextRequest) {
         }
 
 
-        return NextResponse.json({ success: true, data: getAllPosts, message: "All post fetched." }, { status: 201 })
+
+        const response = NextResponse.json({ success: true, data: getAllPosts, message: "All post fetched." })
+
+        response.headers.set("Cache-Controle", "no-store , max-age=0")
+
+
+        // response.setHeaders("" , "")
+
+
+        return response
 
     } catch (error: any) {
 

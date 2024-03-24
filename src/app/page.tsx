@@ -114,9 +114,9 @@ function AllPostDiv() {
         allPostData.length > 0
           ?
 
-          allPostData.map((ele) => {
+          allPostData.map((ele, i) => {
             return (
-              <Card key={ele.id} ele={ele} />
+              <Card key={i} ele={ele} />
             )
           })
 
@@ -195,7 +195,7 @@ function Card({ ele }: { ele: PostInterFace }) {
               ?
 
               ele.hashthats.map((hash, i) => {
-                return <p key={i}>#{hash}</p>
+                return <p key={i}>{hash}</p>
               })
 
               : <>
