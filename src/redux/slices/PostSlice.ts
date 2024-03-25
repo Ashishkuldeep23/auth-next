@@ -82,6 +82,7 @@ export interface PostInterFace {
 interface PostSliceInterFace {
     isLoading: boolean,
     isFullfilled: boolean,
+    writePostFullFilled: boolean;
     isError: boolean,
     errMsg: string,
     allPost: PostInterFace[]
@@ -90,6 +91,7 @@ interface PostSliceInterFace {
 const initialState: PostSliceInterFace = {
     isLoading: false,
     isFullfilled: false,
+    writePostFullFilled: false,
     isError: false,
     errMsg: "",
     allPost: []
@@ -100,7 +102,9 @@ const psotSlice = createSlice({
     initialState,
     reducers: {
 
-
+        setWriteFullFilledVal(state , action){
+            state.writePostFullFilled = action.payload
+        }
 
     },
 
@@ -147,6 +151,7 @@ const psotSlice = createSlice({
             // New post
 
             .addCase(createNewPost.pending, (state) => {
+                state.writePostFullFilled = false
                 state.isLoading = true
                 state.errMsg = ''
             })
@@ -156,7 +161,9 @@ const psotSlice = createSlice({
                 // console.log(action.payload)
 
                 if (action.payload.success === true) {
-                    state.isFullfilled = true
+                    // state.isFullfilled = true
+
+                    state.writePostFullFilled = true
 
 
                     // state.allPost = action.payload.data
@@ -197,7 +204,7 @@ const psotSlice = createSlice({
 
 
 
-export const { } = psotSlice.actions
+export const { setWriteFullFilledVal } = psotSlice.actions
 
 export const usePostData = () => useSelector((state: RootState) => state.postReducer)
 

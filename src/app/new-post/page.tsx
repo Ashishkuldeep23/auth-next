@@ -1,17 +1,15 @@
 'use client'
 
-import { useThemeData } from '@/redux/slices/ThemeSlice'
-import React, { useEffect, useState } from 'react'
-import HomeButton from '../components/HomeButton'
-import Navbar from '../components/Navbar'
-import { useDispatch } from 'react-redux'
-import { AppDispatch } from '@/redux/store'
-import { createNewPost, usePostData } from '@/redux/slices/PostSlice'
-import { useSession } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
-import toast from 'react-hot-toast/headless'
-import Image from "next/image"
-import MainLoader from '../components/MainLoader'
+import { useThemeData } from '@/redux/slices/ThemeSlice';
+import React, { useEffect, useState } from 'react';
+import Navbar from '../components/Navbar';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '@/redux/store';
+import { createNewPost, setWriteFullFilledVal, usePostData } from '@/redux/slices/PostSlice';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import toast from 'react-hot-toast/headless';
+import MainLoader from '../components/MainLoader';
 
 
 export interface NewPostType {
@@ -35,7 +33,7 @@ const NewPostPage = () => {
 
     const { data: session, status } = useSession()
 
-    const { isFullfilled, isLoading } = usePostData()
+    const { writePostFullFilled, isLoading } = usePostData()
 
     const [newPostData, setNewPostData] = useState<NewPostType>({
         title: "",
@@ -131,11 +129,12 @@ const NewPostPage = () => {
 
     useEffect(() => {
 
-        if (isFullfilled) {
+        if (writePostFullFilled) {
             router.push("/")
+            dispatch(setWriteFullFilledVal(false))
         }
 
-    }, [isFullfilled])
+    }, [writePostFullFilled])
 
 
     const classNamesForInputs = ` w-[68%] border rounded-sm px-1 ${!themeMode ? " bg-slate-900 text-white" : " bg-slate-100 text-black"}`
